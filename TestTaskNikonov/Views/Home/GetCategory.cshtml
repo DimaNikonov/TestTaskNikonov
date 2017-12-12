@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Category>;
+@{
+    ViewData["Title"] = "GetCategory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Categories</h2>
+<div class="box-header ui-sortable-handle" style="margin-top:15px">
+    <div id="btn-tools" style="float:left;">
+        <button id="addApp" type="submit" class="btn btn-group-justified btn-success" data-name="Add" data-toggle="modal" data-target="#crtModal" title="Add">
+            Create
+        </button>
+    </div>
+</div>
+
+<section class="content">
+    <div class="box box-success">
+        <div style="margin-top:50px">
+            <div class="table-responsive">
+                <table id="dataviews-table" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Name</td>
+                                <td>
+                                    @using (Html.BeginForm())
+                                    {
+                                        <span style="float:left; margin-right:5px"><button title="Delete" onclick="return confirm('Are you sure you wish to delete this article?');" asp-action="DeleteCategory" asp-controller="Home" asp-route-Id="@item.Id"><i class="glyphicon glyphicon-trash"></i></button></span>
+                                    }
+
+                                    @using (Html.BeginForm("EditCategory", "Home", FormMethod.Get))
+                                    {
+                                        <span style="float:left; margin-right:5px"><button title="Edit" method="" asp-action="EditCategory" asp-controller="Home" asp-route-Id="@item.Id"><i class="glyphicon glyphicon-edit"></i></button></span>
+                                    }
+                                    @*<button><a asp-action="Edit" title="Edit" asp-controller="Home" method="post" asp-route-Id="@app.Id"><i class="glyphicon glyphicon-edit"></i></a></button>
+                                        <form asp-action="Edit" asp-controller="Home" asp-route-Id="@app.Id" method="post">
+                                            <button type="submit"><i class="fa fa-trash fa-lg"></i></button>
+                                        </form>*@
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="crtModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div id="addModal" class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <h2 style="text-align:center">Add Category</h2>
+                    <form asp-action="CreateCategory" method="post" role="form">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="Name" placeholder="Name" />
+                        </div>
+                        <button id="submit" type="submit" class="btn btn-group-justified btn-success btn-block"
+                                data-toggle="modal" data-target="#crtModal">
+                            Create
+                        </button>
+                    </form>
+                </div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,22 @@
+﻿<h3>Список моделей</h3>
+<input type="button" value="Добавить" class="btn btn-default" (click)="add()" />
+<table *ngIf="tableMode; else create" class="table table-striped">
+    <thead>
+        <tr>
+            <td>Name</td>
+            <td>Descriptions</td>
+            <td>Size</td>
+            <td>Date Update</td>
+            <td>Categry Name</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let app of applications">
+            <td>{{app?.name}}</td>
+            <td>{{app?.description?}}</td>
+            <td>{{app?.size}}</td>
+            <td>{{app?.dateUpdate}}</td>
+            <td>{{app?.categoryName}}</td>
+        </tr>
+    </tbody>
+</table>
